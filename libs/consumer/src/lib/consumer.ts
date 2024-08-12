@@ -7,11 +7,11 @@ import {
   MESSAGES_TYPE,
   QUEUE_NAME,
   QUEUE_OPTIONS,
-} from './consts';
+} from '@get-vacancy/consts';
 
 export class Consumer {
   constructor(
-    private handler: (msg: any) => void,
+    private handler: (msg) => void,
     private messageTypes: MESSAGES_TYPE[]
   ) {}
 
@@ -25,12 +25,12 @@ export class Consumer {
         EXCHANGE_OPTIONS
       );
       const { queue } = await channel.assertQueue(QUEUE_NAME, QUEUE_OPTIONS);
-      this.messageTypes.map((messageType) =>
+      this.messageTypes.map(messageType =>
         channel.bindQueue(queue, EXCHANGE_NAME, messageType)
       );
-      await channel.consume(queue, this.handler);
+      await channel.consume(queue, this.handler, { noAck: true });
     } catch (err) {
-      console.log(`???err`, err);
+      console.log('???err', err);
     }
   }
 }

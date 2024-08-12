@@ -16,6 +16,15 @@ export const parseRules = [
     },
     selector: '.vacancy-search-item__card h2 span a',
   },
+  // {
+  //   url: 'https://kyzyl.hh.ru/search/vacancy?text=Frontend&salary=&ored_clusters=true&order_by=publication_time&search_period=1&hhtmFrom=vacancy_search_list&hhtmFromLabel=vacancy_search_line',
+  //   // options: {
+  //   //   headers: { 'Cookie': 'hhtoken=aYd152sjykcjljs0HhHB3dtIYp!I' },
+  //   // },
+  //   selector: '.vacancy-search-item__card h2 span a',
+  //   options: {},
+  //   lintTemplate: '',
+  // },
 ];
 
 export const fetchDelay = +(process.env.DELAY ?? 60000);

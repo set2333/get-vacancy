@@ -1,4 +1,5 @@
-import { Consumer, MESSAGES_TYPE } from '@get-vacancy/consumer'
+import { Consumer } from '@get-vacancy/consumer';
+import { MESSAGES_TYPE } from '@get-vacancy/consts';
 
 let outTime = new Date().toLocaleTimeString();
 

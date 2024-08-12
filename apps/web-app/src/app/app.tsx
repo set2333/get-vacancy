@@ -1,28 +1,15 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useEffect, useRef } from 'react';
-import styles from './app.module.scss';
-
-
+import useVacancies from './use-vacancies/use-vacancies';
 
 export function App() {
-  const ws = useRef<WebSocket>(null);
+  const { vacancies } = useVacancies();
 
-  useEffect(() => {
-    ws.current = new WebSocket('ws://localhost:8080')
-    ws.current.onopen = () => {
-      console.log(`???Open`)
-    }
-    ws.current.onmessage = (event) => {
-      console.log('GET', event.data)
-    }
-
-    return () => {
-      ws.current.close()
-    }
-  }, []);
   return (
     <div>
-      TEST
+      {vacancies.map((vacancy) => (
+        <div key={vacancy.url}>
+          <a href={vacancy.url}>{vacancy.name} [{vacancy.messageType}]</a>
+        </div>
+      ))}
     </div>
   );
 }

@@ -2,7 +2,9 @@
   "name": "@get-vacancy/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "lint": "npx nx run-many --target=lint"
+  },
   "private": true,
   "devDependencies": {
     "@nx/esbuild": "19.5.7",
