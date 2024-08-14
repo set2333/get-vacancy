@@ -28,3 +28,5 @@ export const parseRules = [
 ];
 
 export const fetchDelay = +(process.env.DELAY ?? 60000);
+
+export const connectionPath = process.env.CONNECTION_PATH || 'amqp://localhost:5672';

@@ -1,8 +1,7 @@
 import amqp from 'amqplib';
 import { parse } from 'node-html-parser';
-import { connectionPath } from '@get-vacancy/config';
 import { EXCHANGE_NAME, EXCHANGE_OPTIONS, EXCHANGE_TYPE, MESSAGES_TYPE } from '@get-vacancy/consts';
-import { parseRules, fetchDelay } from './config';
+import { connectionPath, parseRules, fetchDelay } from './config';
 import Store from './store';
 
 const store = new Store();

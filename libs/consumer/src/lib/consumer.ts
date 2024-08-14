@@ -1,5 +1,5 @@
 import amqp from 'amqplib';
-import { connectionPath } from '@get-vacancy/config';
+import { connectionPath } from './config';
 import {
   EXCHANGE_NAME,
   EXCHANGE_OPTIONS,

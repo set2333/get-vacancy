@@ -38,7 +38,8 @@
         "apps/console-e2e/**/*",
         "apps/voice-e2e/**/*",
         "apps/notification-e2e/**/*",
-        "apps/ws-e2e/**/*"
+        "apps/ws-e2e/**/*",
+        "apps/buffer-e2e/**/*"
       ]
     },
     {

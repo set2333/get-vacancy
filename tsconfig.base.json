@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@get-vacancy/config": ["libs/config/src/index.ts"],
       "@get-vacancy/consts": ["libs/consts/src/index.ts"],
       "@get-vacancy/consumer": ["libs/consumer/src/index.ts"]
     }
