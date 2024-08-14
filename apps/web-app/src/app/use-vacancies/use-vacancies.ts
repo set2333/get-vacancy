@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { MESSAGES_TYPE } from '@get-vacancy/consts';
+import type { WSMessage } from '@get-vacancy/types';
 
 let voices = speechSynthesis.getVoices();
     
@@ -25,12 +26,12 @@ const speak = (text: string) => {
 
 export function useVacancies() {
   const ws = useRef<WebSocket>();
-  const [vacancies, setVacancies] = useState([]);
+  const [vacancies, setVacancies] = useState<WSMessage[]>([]);
 
   useEffect(() => {
     ws.current = new WebSocket('ws://localhost:8080');
     ws.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
+      const message: WSMessage = JSON.parse(event.data);
       setVacancies((prev) => [...prev, message]);
 
       if (message.messageType === MESSAGES_TYPE.NEW_VACANCY) {

@@ -8,10 +8,11 @@ import {
   QUEUE_NAME,
   QUEUE_OPTIONS,
 } from '@get-vacancy/consts';
+import type { MessageResponce } from '@get-vacancy/types';
 
 export class Consumer {
   constructor(
-    private handler: (msg) => void,
+    private handler: (msg: MessageResponce) => void,
     private messageTypes: MESSAGES_TYPE[]
   ) {}
 

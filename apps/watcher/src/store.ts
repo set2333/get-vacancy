@@ -1,11 +1,13 @@
-class Store {
-  vacancies = {};
+import { Message } from '@get-vacancy/types';
 
-  push(vacancies) {
-    vacancies.forEach(({ name, url }) => this.vacancies[url] = name);
+class Store {
+  vacancies: Record<Message['url'], Message['name']> = {};
+
+  push(vacancies: Message[]) {
+    vacancies.forEach(({ name, url }) => (this.vacancies[url] = name));
   }
 
-  has({ url }) {
+  has({ url }: Message) {
     return !!this.vacancies[url];
   }
 

@@ -1,6 +1,7 @@
 import amqp from 'amqplib';
 import { parse } from 'node-html-parser';
 import { EXCHANGE_NAME, EXCHANGE_OPTIONS, EXCHANGE_TYPE, MESSAGES_TYPE } from '@get-vacancy/consts';
+import type { Message } from '@get-vacancy/types';
 import { connectionPath, parseRules, fetchDelay } from './config';
 import Store from './store';
 
@@ -8,22 +9,21 @@ const store = new Store();
 
 const delay = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
 
-const sendMessage = async (message, messageType) => {
+const sendMessage = async (message: Message, messageType: MESSAGES_TYPE) => {
   const connection = await amqp.connect(connectionPath);
   const channel = await connection.createChannel();
   await channel.assertExchange(EXCHANGE_NAME, EXCHANGE_TYPE, EXCHANGE_OPTIONS);
   channel.publish(
     EXCHANGE_NAME,
     messageType,
-    // @ts-ignore-next-line
-    Buffer.from(JSON.stringify(message), { 'content_type': 'application/json' }),
+    Buffer.from(JSON.stringify(message)),
   );
   await delay();
   await connection.close();
 };
 
 const getVacancies = async () => {
-  const vacancies = (
+  const vacancies: Message[] = (
     await Promise.all(parseRules.map(async (rule) => {
       const response = await fetch(rule.url, rule?.options);
       const html = await response.text();
@@ -50,4 +50,3 @@ const getVacancies = async () => {
 };
 
 getVacancies();
-

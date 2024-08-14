@@ -1,16 +1,15 @@
 import express from 'express';
 import { Consumer } from '@get-vacancy/consumer';
 import { MESSAGES_TYPE } from '@get-vacancy/consts';
+import { host, port } from './config';
+import { Message } from '@get-vacancy/types';
 
-const messages = [];
+const messages: Message[] = [];
 
 const consumer = new Consumer(
   (msg) => messages.push(JSON.parse(msg.content.toString())),
-  [MESSAGES_TYPE.INITIAL, MESSAGES_TYPE.NEW_VACANCY],
+  [MESSAGES_TYPE.INITIAL, MESSAGES_TYPE.NEW_VACANCY]
 );
-
-const host = process.env.HOST ?? 'localhost';
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 const app = express();
 
@@ -19,7 +18,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, host, () => {
-  console.log(`[ ready ] http://${host}:${port}`);
+  consumer.run().then(() => console.log(`[ ready ] http://${host}:${port}`));
 });
-
-consumer.run();

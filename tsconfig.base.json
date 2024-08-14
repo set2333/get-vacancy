@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@get-vacancy/consts": ["libs/consts/src/index.ts"],
-      "@get-vacancy/consumer": ["libs/consumer/src/index.ts"]
+      "@get-vacancy/consumer": ["libs/consumer/src/index.ts"],
+      "@get-vacancy/types": ["libs/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
