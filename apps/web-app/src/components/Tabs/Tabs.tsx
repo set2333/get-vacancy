@@ -10,12 +10,12 @@ type TabsProps = {
 const Tabs: FC<TabsProps> = ({ currentTab, onChange }) => {
   const items: AntdTabsProps['items'] = [
     {
-      key: MESSAGES_TYPE.INITIAL,
-      label: 'Initial'
+      key: MESSAGES_TYPE.NEW_VACANCY,
+      label: 'Новые'
     },
     {
-      key: MESSAGES_TYPE.NEW_VACANCY,
-      label: 'New'
+      key: MESSAGES_TYPE.INITIAL,
+      label: 'Все'
     },
   ];
 

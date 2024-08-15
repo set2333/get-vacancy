@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { MESSAGES_TYPE } from '@get-vacancy/consts';
 import type { WSMessage } from '@get-vacancy/types';
+import SettingsContext from '../../../SettingsContext';
 
 let voices = speechSynthesis.getVoices();
     
@@ -27,6 +28,7 @@ const speak = (text: string) => {
 export function useVacancies() {
   const ws = useRef<WebSocket>();
   const [vacancies, setVacancies] = useState<WSMessage[]>([]);
+  const ctx = useContext(SettingsContext);
 
   useEffect(() => {
     ws.current = new WebSocket('ws://localhost:8080');
@@ -35,21 +37,22 @@ export function useVacancies() {
       const messages: WSMessage[] = Array.isArray(pasdedData) ? pasdedData : [pasdedData];
       setVacancies((prev) => [...prev, ...messages]);
 
-      if (messages.some(({ messageType }) => messageType === MESSAGES_TYPE.NEW_VACANCY)) {
+      if (ctx .isUseVoice && messages.some(({ messageType }) => messageType === MESSAGES_TYPE.NEW_VACANCY)) {
         speak('Есть новые вакансии');
       }
-      
     };
 
     ws.current.onopen = () => {
-      ws?.current?.send('get all messages');
+      if (ctx.isFetchOldVacansies) {
+        ws?.current?.send('get all messages');
+      }
     };
     
 
     return () => {
       ws.current?.close();
     };
-  }, []);
+  }, [ctx.isFetchOldVacansies, ctx.isUseVoice]);
 
   return { vacancies };
 }

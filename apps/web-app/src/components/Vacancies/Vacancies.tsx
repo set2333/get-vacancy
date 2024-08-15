@@ -13,7 +13,7 @@ const Vacancies: FC<VacanciesProps> = ({ vacancies }) => {
       renderItem={(item) => (
         <List.Item>
           <List.Item.Meta
-            title={<a href="https://ant.design">{item.name}</a>}
+            title={<a href={item.url} target="_blank" rel="noreferrer">{item.name}</a>}
           />
         </List.Item>
       )}
