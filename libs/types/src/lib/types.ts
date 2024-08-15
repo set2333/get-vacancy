@@ -15,3 +15,10 @@ export type MessageResponce = {
     routingKey: string;
   };
 };
+
+export interface MessageStore {
+  push: (messages: Message[]) => void;
+  has: (message: Pick<Message, 'url'>) => boolean;
+  getAll: () => Message[];
+  isEmpty: boolean;
+}

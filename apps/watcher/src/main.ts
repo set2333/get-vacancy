@@ -1,11 +1,11 @@
 import amqp from 'amqplib';
 import { parse } from 'node-html-parser';
 import { EXCHANGE_NAME, EXCHANGE_OPTIONS, EXCHANGE_TYPE, MESSAGES_TYPE } from '@get-vacancy/consts';
+import { MemoryStore } from '@get-vacancy/memory-store';
 import type { Message } from '@get-vacancy/types';
 import { connectionPath, parseRules, fetchDelay } from './config';
-import Store from './store';
 
-const store = new Store();
+const store = new MemoryStore();
 
 const delay = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -25,14 +25,20 @@ const sendMessage = async (message: Message, messageType: MESSAGES_TYPE) => {
 const getVacancies = async () => {
   const vacancies: Message[] = (
     await Promise.all(parseRules.map(async (rule) => {
-      const response = await fetch(rule.url, rule?.options);
-      const html = await response.text();
-      const root = parse(html);
+      try {
+        const response = await fetch(rule.url, rule?.options);
+        const html = await response.text();
+        const root = parse(html);
+  
+        return root.querySelectorAll(rule.selector).map(vacancy => ({
+          name: vacancy.innerText,
+          url: rule?.lintTemplate?.replace('{URL}', vacancy.getAttribute('href')) || vacancy.getAttribute('href'),
+        }));
+      } catch (error) {
+        console.log('Error:', error);
 
-      return root.querySelectorAll(rule.selector).map(vacancy => ({
-        name: vacancy.innerText,
-        url: rule?.lintTemplate?.replace('{URL}', vacancy.getAttribute('href')) || vacancy.getAttribute('href'),
-      }));
+        return [];
+      }
     }))
   )
   .flat()

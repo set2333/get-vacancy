@@ -31,14 +31,20 @@ export function useVacancies() {
   useEffect(() => {
     ws.current = new WebSocket('ws://localhost:8080');
     ws.current.onmessage = (event) => {
-      const message: WSMessage = JSON.parse(event.data);
-      setVacancies((prev) => [...prev, message]);
+      const pasdedData: WSMessage | WSMessage[] = JSON.parse(event.data);
+      const messages: WSMessage[] = Array.isArray(pasdedData) ? pasdedData : [pasdedData];
+      setVacancies((prev) => [...prev, ...messages]);
 
-      if (message.messageType === MESSAGES_TYPE.NEW_VACANCY) {
+      if (messages.some(({ messageType }) => messageType === MESSAGES_TYPE.NEW_VACANCY)) {
         speak('Есть новые вакансии');
       }
       
     };
+
+    ws.current.onopen = () => {
+      ws?.current?.send('get all messages');
+    };
+    
 
     return () => {
       ws.current?.close();
