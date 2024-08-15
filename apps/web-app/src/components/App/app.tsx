@@ -4,7 +4,7 @@ import Tabs from '../Tabs/Tabs';
 import Vacancies from '../Vacancies/Vacancies';
 import Settings from '../Settings/Settings';
 import SettingsContext from '../../SettingsContext';
-import useSettings from './use-settings/settings';
+import useSettings from './use-settings/use-settings';
 import useVacancies from './use-vacancies/use-vacancies';
 
 const App: FC = () => {
