@@ -1,6 +1,6 @@
-import { Message, MessageStore } from '@get-vacancy/types';
+import { Message, IStore } from '@get-vacancy/types';
 
-export class MemoryStore implements MessageStore {
+export class MemoryStore implements IStore {
   private vacancies: Record<Message['url'], Message> = {};
 
   push(vacancies: Message[]) {

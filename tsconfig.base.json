@@ -15,9 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@get-vacancy/configurator": ["libs/configurator/src/index.ts"],
       "@get-vacancy/consts": ["libs/consts/src/index.ts"],
       "@get-vacancy/consumer": ["libs/consumer/src/index.ts"],
+      "@get-vacancy/fetcher": ["libs/fetcher/src/index.ts"],
       "@get-vacancy/memory-store": ["libs/memory-store/src/index.ts"],
+      "@get-vacancy/parser": ["libs/parser/src/index.ts"],
+      "@get-vacancy/sender": ["libs/sender/src/index.ts"],
       "@get-vacancy/types": ["libs/types/src/index.ts"]
     }
   },

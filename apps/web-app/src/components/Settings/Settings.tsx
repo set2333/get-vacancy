@@ -43,7 +43,7 @@ const Settings: FC = () => {
             {label}
             <Switch
               checked={!!ctx[key]}
-              onChange={() => ctx[setterKey](!ctx[key])}
+              onChange={() => {ctx[setterKey](!ctx[key])}}
             />
           </div>
         ))}

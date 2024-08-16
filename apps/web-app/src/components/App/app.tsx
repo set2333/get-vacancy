@@ -5,10 +5,8 @@ import Vacancies from '../Vacancies/Vacancies';
 import Settings from '../Settings/Settings';
 import SettingsContext from '../../SettingsContext';
 import useSettings from './use-settings/use-settings';
-import useVacancies from './use-vacancies/use-vacancies';
 
 const App: FC = () => {
-  const { vacancies } = useVacancies();
   const [currentTab, setCurrentTab] = useState<string>(MESSAGES_TYPE.NEW_VACANCY);
   const settings = useSettings();
 
@@ -16,7 +14,7 @@ const App: FC = () => {
     <SettingsContext.Provider value={settings}>
       <Settings />
       <Tabs currentTab={currentTab} onChange={setCurrentTab}/>
-      <Vacancies vacancies={vacancies.filter(({ messageType }) => currentTab === MESSAGES_TYPE.INITIAL || messageType === currentTab)} />
+      <Vacancies currentTab={currentTab} />
     </SettingsContext.Provider>
   );
 };

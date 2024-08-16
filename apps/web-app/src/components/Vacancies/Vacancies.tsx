@@ -1,15 +1,18 @@
 import { FC } from 'react';
 import { List } from 'antd';
-import { WSMessage } from '@get-vacancy/types';
+import { MESSAGES_TYPE } from '@get-vacancy/consts';
+import useVacancies from './use-vacancies/use-vacancies';
 
 type VacanciesProps = {
-  vacancies: WSMessage[];
+  currentTab: string;
 }
 
-const Vacancies: FC<VacanciesProps> = ({ vacancies }) => {
+const Vacancies: FC<VacanciesProps> = ({ currentTab }) => {
+  const { vacancies } = useVacancies();
+
   return (
     <List
-      dataSource={vacancies}
+      dataSource={vacancies.filter(({ messageType }) => currentTab === MESSAGES_TYPE.INITIAL || messageType === currentTab)}
       renderItem={(item) => (
         <List.Item>
           <List.Item.Meta
