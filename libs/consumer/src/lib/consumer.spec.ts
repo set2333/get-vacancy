@@ -1,7 +1,7 @@
 import { MESSAGES_TYPE } from '@get-vacancy/consts';
 import { Consumer } from './consumer';
 
-describe('consumer', () => {
+describe('Consumer', () => {
   const mockStore = {
     value: 0,
   };

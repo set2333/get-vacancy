@@ -1,7 +1,7 @@
 import { FetchedData, IFetcher, Rule } from '@get-vacancy/types';
 
 export class Fetcher implements IFetcher {
-  constructor(private rules: Rule[]) {}
+  constructor(private rules: Pick<Rule, 'url' | 'options'>[]) {}
 
   async fetch(): Promise<FetchedData[]> {
     try {

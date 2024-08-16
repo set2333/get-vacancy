@@ -1,7 +1,9 @@
-import { configurator } from './configurator';
+import { connectionPath, fetchDelay, parseRules } from './config';
+import { Configurator } from './configurator';
 
-describe('configurator', () => {
+describe('Configurator', () => {
+  const configurator = new Configurator();
   it('should work', () => {
-    expect(configurator()).toEqual('configurator');
+    expect(configurator.get()).toEqual({ parseRules, connectionPath, fetchDelay });
   });
 });

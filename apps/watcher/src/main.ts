@@ -27,7 +27,7 @@ class Watcher {
 
   async run() {
     const fetchedData = await this.fetcher.fetch();
-    const vacancies = await this.parser.parse(fetchedData);
+    const vacancies = (await this.parser.parse(fetchedData)).filter(vacancy => !this.store.has(vacancy));
     await this.sender.send(
       vacancies,
       this.store.isEmpty ? MESSAGES_TYPE.INITIAL : MESSAGES_TYPE.NEW_VACANCY,

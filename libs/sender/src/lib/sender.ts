@@ -14,7 +14,7 @@ export class Sender implements ISender {
     this.config = configurator.get();
   }
 
-  async send(messages, messageType) {
+  async send(messages: Message[], messageType: MESSAGES_TYPE) {
     await Promise.all(messages.map(vacancy => this.sendMessage(vacancy, messageType)));
   }
 
