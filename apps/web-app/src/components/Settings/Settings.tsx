@@ -29,6 +29,9 @@ const Settings: FC = () => {
 
   return (
     <div className={styles.settings}>
+      <Button onClick={() => window.location.reload()}>
+        Обновить
+      </Button>
       <Button type="primary" onClick={() => setIsOpen((prev) => !prev)}>
         Настройки
       </Button>
